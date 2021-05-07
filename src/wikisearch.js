@@ -9,14 +9,19 @@ const puppeteer = require('puppeteer');
 
     await page.waitForSelector('input[name=search]');
 
-    await page.$eval('input[name=search]', el => el.value = 'Adenosine triphosphate');
+    await page.$eval('input[name=search]', el => el.value = 'Big Bird');
 
     await page.click('input[type="submit"]');
     await page.waitForSelector('#mw-content-text');
+
+    await page.waitForTimeout(3000);
+
     const text = await page.evaluate(() => {
         const anchor = document.querySelector('#mw-content-text');
         return anchor.textContent;
     });
+
     console.log(text);
+
     await browser.close();
 })();
